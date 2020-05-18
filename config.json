@@ -1,11 +1,11 @@
 {
-	"user_id_list": ["1669879400"],
+	"user_id_list": ["1676455960"],
     "filter": 1,
-    "since_date": "2018-01-01",
-    "write_mode": ["csv", "txt"],
-    "pic_download": 1,
-    "video_download": 1,
-    "cookie": "your cookie",
+    "since_date": "2018-08-01",
+    "write_mode": ["csv", "txt", "json"],
+    "pic_download": 0,
+    "video_download": 0,
+    "cookie": "_T_WM=79228780748; ALF=1592018529; SCF=Ag636z-rAXcd8utKXEXTX0RhY8swbrgKQgE9loWJEp-lp6Ed_LqKcDRD-oFa-btphhvE0PHx_oBKYAJE2imyaS4.; SUB=_2A25zuIKCDeRhGeBP7lsU-SnPyjWIHXVRQi7KrDV6PUJbktANLU_RkW1NRVGa9Ghabw445W5-6-Sp-Qi6BJ53ob-I; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5q_AMHRNm6SUlWikeohPex5JpX5KzhUgL.FoqpSK.f1KM0eK.2dJLoIEXLxKqLBonL1h-LxKqL1K.LBKnLxKML1heLBKMLxKqLBK5LBo.LxKnL12BL1h.t; SUHB=0mxk7t_FqeE6RX; SSOLoginState=1589441234; WEIBOCN_FROM=1110006030; MLOGIN=1; M_WEIBOCN_PARAMS=luicode%3D20000174%26uicode%3D20000174",
     "mysql_config": {
         "host": "localhost",
         "port": 3306,
