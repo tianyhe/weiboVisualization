@@ -69,38 +69,93 @@ class Weibo():
         for k,v in self.data.items():
             k = v.reverse()
 
-    def find_date_index(self, year, month, day):
+    def find_date_index(self, datetime):
         """Find the index of the given start date."""
         try:
             for index, ele in enumerate(self.pb_times):
-                if ele.year == year and ele.month == month and ele.day == day:
+                if ele >= datetime:
                     date_index = index
                     break
             return date_index
         except:
-            print("Missing the given date data.")
+            print(f"Missing the data for given date.")
             return None
 
-    def find_month_index(self, year, month):
-            """Find the index of the given start date."""
-            try:
-                for index, ele in enumerate(self.pb_times):
-                    if ele.year == year and ele.month == month and ele.day >= 1:
-                        date_index = index
-                        break
-                return date_index
-            except:
-                print("Missing the given month data.")
-                return None
+    def check_date_index(self):
+        """Check if the index are valid for visualization."""
+        if self.start_index == self.end_index:
+            print("No data avaliable for given time period.")
 
-    def find_year_index(self, year):
-            """Find the index of the given start date."""
-            try:
-                for index, ele in enumerate(self.pb_times):
-                    if ele.year == year and ele.month >=1 and ele.day >= 1:
-                        date_index = index
-                        break
-                return date_index
-            except:
-                print("Missing the given year data.")
-                return None
+    def retrieve_data(self, start_date, end_date, key='pb_times'):
+        """Prepare the data for visualization."""
+        self.start_index = self.find_date_index(start_date)
+        self.end_index = self.find_date_index(end_date)
+        self.check_date_index()
+
+        return self.data[key][self.start_index:self.end_index]
+
+    def visual(self, start_date, end_date, title_name):
+        """Make Visualization with given date."""
+        self.start_index = self.find_date_index(start_date)
+        self.end_index = self.find_date_index(end_date)
+        self.check_date_index()
+
+        data = [
+            {
+                'type': 'bar',
+                'name': 'up_nums',
+                'x': self.wb_links[self.start_index:self.end_index],
+                'y': self.up_nums[self.start_index:self.end_index],
+                'hovertext': self.labels[self.start_index:self.end_index],
+                'marker': {
+                    'color': 'rgb(235, 91, 52)',
+                    'line': {'width': 1.5, 'color': 'rgb(235, 91, 52)'}
+                },
+                'opacity': 0.6,
+            },
+            {
+                'type': 'bar',
+                'name': 'retweet_nums',
+                'x': self.wb_links[self.start_index:self.end_index],
+                'y': self.retweet_nums[self.start_index:self.end_index],
+                'hovertext': self.labels[self.start_index:self.end_index],
+                'marker': {
+                    'color': 'rgb(77, 232, 121)',
+                    'line': {'width': 1.5, 'color': 'rgb(77, 232, 121)'}
+                },
+                'opacity': 0.6,
+            },
+            {
+                'type': 'bar',
+                'name': 'comment_nums',
+                'x': self.wb_links[self.start_index:self.end_index],
+                'y': self.comment_nums[self.start_index:self.end_index],
+                'hovertext': self.labels[self.start_index:self.end_index],
+                'marker': {
+                    'color': 'rgb(7, 140, 242)',
+                    'line': {'width': 1.5, 'color': 'rgb(7, 140, 242)'}
+                },
+                'opacity': 0.6,
+            },
+        ]
+
+        my_layout = {
+            'title': f"Tweets from @KohlerUnited - {title_name}",
+            'titlefont': {'size': 28},
+            'xaxis': {
+                'title': 'Published Time',
+                'titlefont': {'size': 24},
+                'tickfont': {'size': 14},
+                'tickangle': 45,
+            },
+            'yaxis': {
+                'title': 'Engagement Index',
+                'titlefont': {'size': 24},
+                'tickfont': {'size': 14},
+            },
+            'barmode': 'stack',
+        }
+
+        fig = {'data': data, 'layout': my_layout}
+        fig = go.Figure(fig)
+        offline.plot(fig, filename=f"html/2019/2019_12.html")
